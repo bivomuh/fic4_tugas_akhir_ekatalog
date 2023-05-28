@@ -44,15 +44,15 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              decoration: const InputDecoration(labelText: "Name"),
+              decoration: const InputDecoration(labelText: 'Name'),
               controller: nameController,
             ),
             TextField(
-              decoration: const InputDecoration(labelText: "Email"),
+              decoration: const InputDecoration(labelText: 'Email'),
               controller: emailController,
             ),
             TextField(
-              decoration: const InputDecoration(labelText: "Password"),
+              decoration: const InputDecoration(labelText: 'Password'),
               controller: passwordController,
               obscureText: true,
             ),
@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     .read<RegisterBloc>()
                     .add(SaveRegisterEvent(request: requestModel));
               },
-              child: const Text("Register"),
+              child: const Text('Register'),
             ),
           ],
         ),
