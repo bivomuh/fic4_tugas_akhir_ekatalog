@@ -56,20 +56,55 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: passwordController,
               obscureText: true,
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                final requestModel = RegisterModel(
-                    name: nameController!.text,
-                    email: emailController!.text,
-                    password: passwordController!.text);
+            const SizedBox(height: 24),
+            BlocConsumer<RegisterBloc, RegisterState>(
+              listener: (context, state) {
+                if (state is RegisterLoaded) {
+                  nameController!.clear();
+                  emailController!.clear();
+                  passwordController!.clear();
 
-                context
-                    .read<RegisterBloc>()
-                    .add(SaveRegisterEvent(request: requestModel));
+                  // Navigasi
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.amber,
+                      content:
+                          Text('Success Register with id : ${state.model.id}'),
+                    ),
+                  );
+                  Navigator.pop(context);
+                }
               },
-              child: const Text('Register'),
+              builder: (context, state) {
+                if (state is RegisterLoading) {
+                  return const CircularProgressIndicator();
+                }
+
+                return ElevatedButton(
+                  onPressed: () {
+                    final requestModel = RegisterModel(
+                        name: nameController!.text,
+                        email: emailController!.text,
+                        password: passwordController!.text);
+
+                    context
+                        .read<RegisterBloc>()
+                        .add(SaveRegisterEvent(request: requestModel));
+                  },
+                  child: const Text('Register'),
+                );
+              },
             ),
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Sudah punya akun? Masuk disini',
+                style: TextStyle(decoration: TextDecoration.underline),
+              ),
+            )
           ],
         ),
       ),
