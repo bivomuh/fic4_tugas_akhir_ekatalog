@@ -1,4 +1,4 @@
-package com.example.fic4_flutter_auth
+package com.bivomuh.ekatalog
 
 import io.flutter.embedding.android.FlutterActivity
 
