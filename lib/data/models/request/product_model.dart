@@ -19,7 +19,7 @@ class ProductModel {
   ProductModel({
     required this.title,
     required this.price,
-    required this.description,
+    this.description = 'this is the default description',
     this.categoryId = 1,
     this.images = const ['https://placeimg.co/640/480/any'],
   });

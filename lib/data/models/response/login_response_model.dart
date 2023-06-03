@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final loginResponseModel = loginResponseModelFromMap(jsonString);
-
 import 'dart:convert';
 
 class LoginResponseModel {
@@ -16,6 +12,8 @@ class LoginResponseModel {
   factory LoginResponseModel.fromJson(String str) =>
       LoginResponseModel.fromMap(json.decode(str));
 
+  String get getAccessToken => accessToken;
+
   String toJson() => json.encode(toMap());
 
   factory LoginResponseModel.fromMap(Map<String, dynamic> json) =>
@@ -28,4 +26,8 @@ class LoginResponseModel {
         "access_token": accessToken,
         "refresh_token": refreshToken,
       };
+
+  @override
+  String toString() =>
+      'LoginResponseModel(accessToken: $accessToken, refreshToken: $refreshToken)';
 }

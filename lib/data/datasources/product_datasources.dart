@@ -12,16 +12,19 @@ class ProductDatasources {
         body: model.toJson(),
         headers: headers);
 
-    print('===============');
-    print(response.body);
+    // print('===============');
+    // print(response.body);
 
     return ProductResponseModel.fromJson(response.body);
   }
 
   Future<ProductResponseModel> updateProduct(ProductModel model, int id) async {
+    var headers = {'Content-Type': 'application/json'};
+
     final response = await http.put(
       Uri.parse('https://api.escuelajs.co/api/v1/products/$id'),
-      body: model.toMap(),
+      body: model.toJson(),
+      headers: headers,
     );
 
     return ProductResponseModel.fromJson(response.body);
@@ -44,5 +47,15 @@ class ProductDatasources {
         .map((x) => ProductResponseModel.fromMap(x))).toList();
 
     return result;
+  }
+
+  Future<void> deleteProduct(int id) async {
+    final response = await http.delete(
+      Uri.parse('https://api.escuelajs.co/api/v1/products/$id'),
+    );
+
+    print(response.body);
+
+    return;
   }
 }

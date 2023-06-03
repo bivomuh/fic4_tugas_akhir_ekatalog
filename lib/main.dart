@@ -1,10 +1,15 @@
+// big thanks to -> https://github.com/pajrialzukri
+
 import 'package:fic4_flutter_auth/bloc/login/login_bloc.dart';
 import 'package:fic4_flutter_auth/bloc/product/create_product/create_product_bloc.dart';
+import 'package:fic4_flutter_auth/bloc/product/delete_product/delete_product_bloc.dart';
 import 'package:fic4_flutter_auth/bloc/product/get_all_product/get_all_product_bloc.dart';
+import 'package:fic4_flutter_auth/bloc/product/update_product/update_product_bloc.dart';
 import 'package:fic4_flutter_auth/bloc/profile/profile_bloc.dart';
 import 'package:fic4_flutter_auth/data/datasources/auth_datasources.dart';
 import 'package:fic4_flutter_auth/data/datasources/product_datasources.dart';
-import 'package:fic4_flutter_auth/presentation/pages/login_page.dart';
+import 'package:fic4_flutter_auth/data/shared/theme.dart';
+import 'package:fic4_flutter_auth/presentation/pages/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,14 +41,24 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetAllProductBloc(ProductDatasources()),
         ),
+        BlocProvider(
+          create: (context) => UpdateProductBloc(ProductDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => DeleteProductBloc(ProductDatasources()),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: kMainColor,
+          ),
           useMaterial3: true,
         ),
-        home: const LoginPage(),
+        routes: appRoutes,
+        initialRoute: '/',
       ),
     );
   }
